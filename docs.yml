@@ -19,13 +19,40 @@ globals:
             - $vars.header.auth
 
 vars:
-    response:
+    post:
+        create_user:
+            lang: JSON
+            content:
+                {
+                    "email": "unused email to register",
+                    "nick": "unused nick to register",
+                    "password": "passowrd to bind to this account"
+                }
+        login:
+            lang: JSON
+            content:
+                {
+                    "email": "email of this account",
+                    "password": "password to this account",
+                    "secret": "or the secret produced by the server on last login"
+                }
+        create_content:
+            lang: JSON
+            content:
+                {
+                    "mime": "content mime type",
+                    "nsfw": "is this content not safe for work?"
+                }
+
+    body:
         user_create:
             lang: JSON
             content: {"user": "created"}
         forbidden:
             lang: JSON
             content: {"error": "forbidden"}
+
+    response:
         user_info:
             title: User information
             description: This user was found and their basic profile was returned
@@ -47,6 +74,29 @@ vars:
                 body:
                     lang: JSON
                     content: {"error": "no_such_user"}
+        login:
+            title: Sucessful login
+            description: The information provided was correct a login token and new secret was produced
+            body:
+                lang: JSON
+                content:
+                    {
+                        "auth": {
+                            "token": "Bearer token to be used in headers for authentication dependant requests",
+                            "expires": "expiry timestamp of this token",
+                            "secret": "secret to be used for logging in so that a password is not stored"
+                            }
+                    }
+        check:
+            title: Resource availability was checked
+            description: Information about the queried resource was returned
+            body:
+                lang: JSON
+                content:
+                    {
+                        "exists": "does this resurce already exist bound to some user?"
+                    }
+
     header:
         auth:
             name: Authorization
@@ -57,25 +107,16 @@ routes:
     /user/:
         POST:
             description: Create a new user
-            headers:
-                - $header.auth
-            body:
-                lang: JSON
-                content:
-                    {
-                        "email": "<account_email>",
-                        "nick": "<account_nick>",
-                        "password": "<account_password>"
-                    }
+            body: $post.create_user
             responses:
                 200:
                     title: Account Created
                     description: This account was created
-                    body: $response.user_create
+                    body: $body.user_create
                 403:
                     title: Forbidden
                     description: This device or ip address/range may not create users
-                    body: $response.forbidden
+                    body: $body.forbidden
                 409:
                     title: Conflict
                     description: The requested `nick` or `email` is already in use
@@ -83,20 +124,40 @@ routes:
                         lang: JSON
                         content: {"error": "<value>_conflict"}
 
-    /user/:id:
+    /user/:id/:
         GET:
             description: Get information about some user by their id
-            headers:
-                - $header.auth
             responses:
                 200: $response.user_info
                 404: $response.no_such_user
 
-    /users/nick/:nick:
+    /user/nick/:nick:
         GET:
             description: Get information about some user by their nick
-            headers:
-                - $header.auth
             responses:
                 200: $response.user_info
                 404: $response.no_such_user
+
+    /auth/:
+        POST:
+            description: Log in with an email/password, or an email/secret
+            body: $post.login
+            responses:
+                200: $response.login
+
+    /check/nick/:nick/:
+        GET:
+            description: Check a nickname for availability
+            responses:
+                200: $response.check
+
+    /check/email/:email/:
+        GET:
+            description: Check an email for availability
+            responses:
+                200: $response.check
+
+    /content/:
+        POST:
+            description: Upload some image or video content
+            body: $post.create_content
