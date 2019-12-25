@@ -25,15 +25,6 @@ No Authorization header was included with this request
 }
 ```
 
-- 404 - Not Found
-This route was not found, or the information of this dynamic route is not found
-
-```JSON
-{
-    "error": "not_found"
-}
-```
-
 - 400 - Bad Request
 Request data is malformed or data is missing
 
@@ -93,15 +84,6 @@ No Authorization header was included with this request
 }
 ```
 
-- 404 - No such user
-A user of this id does not exist
-
-```JSON
-{
-    "error": "no_such_user"
-}
-```
-
 - 200 - User information
 This user was found and their basic profile was returned
 
@@ -114,6 +96,15 @@ This user was found and their basic profile was returned
     "subscription_count": "number of users this user has subscribed to",
     "post_count": "number of posts and reposts on this user's timeline",
     "created": "unix creation timestamp"
+}
+```
+
+- 404 - No such user
+A user of this id does not exist
+
+```JSON
+{
+    "error": "no_such_user"
 }
 ```
 
@@ -140,15 +131,6 @@ No Authorization header was included with this request
 }
 ```
 
-- 404 - No such user
-A user of this id does not exist
-
-```JSON
-{
-    "error": "no_such_user"
-}
-```
-
 - 200 - User information
 This user was found and their basic profile was returned
 
@@ -161,6 +143,68 @@ This user was found and their basic profile was returned
     "subscription_count": "number of users this user has subscribed to",
     "post_count": "number of posts and reposts on this user's timeline",
     "created": "unix creation timestamp"
+}
+```
+
+- 404 - No such user
+A user of this id does not exist
+
+```JSON
+{
+    "error": "no_such_user"
+}
+```
+
+
+</details>
+
+
+<details>
+<summary>POST /auth/</summary>
+Log in with an email/password, or an email/secret
+
+|name|value|required|
+| - | - | - |
+|Authorization|Basic or Bearer authorization|True|
+
+```JSON
+{
+    "email": "<account_email>",
+    "password": "<account_password>",
+    "secret": "or the secret produced by the server on last login"
+}
+```
+
+__responses__
+
+- 401 - Not Authorized
+No Authorization header was included with this request
+
+```JSON
+{
+    "error": "not_authorized"
+}
+```
+
+- 400 - Bad Request
+Request data is malformed or data is missing
+
+```JSON
+{
+    "error": "bad_request"
+}
+```
+
+- 200 - Sucessful login
+The information provided was correct a login token and new secret was produced
+
+```JSON
+{
+    "auth": {
+        "token": "Bearer token to be used in headers for authentication dependant requests",
+        "expires": "expiry timestamp of this token",
+        "secret": "secret to be used for logging in so that a password is not stored"
+    }
 }
 ```
 

@@ -7,12 +7,6 @@ globals:
                 body:
                     lang: JSON
                     content: {"error": "not_authorized"}
-            404:
-                title: Not Found
-                description: This route was not found, or the information of this dynamic route is not found
-                body:
-                    lang: JSON
-                    content: {"error": "not_found"}
         POST:
             400:
                 title: Bad Request
