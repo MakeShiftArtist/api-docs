@@ -116,6 +116,17 @@ Upload some image or video content
 
 __responses__
 
+- 200 - Content was accepted
+The uploaded media was accepted and is being uploaded. Returned id may not yet be live
+
+```JSON
+{
+    "content": {
+        "id": "id of the created content"
+    }
+}
+```
+
 - 400 - Bad Request
 Request data is malformed or data is missing
 
@@ -131,6 +142,66 @@ No Authorization header was included with this request
 ```JSON
 {
     "error": "not_authorized"
+}
+```
+
+- 403 - Content was rejected
+The uploaded content was rejected because this user is banned from content creation
+
+```JSON
+{
+    "error": "forbidden"
+}
+```
+
+
+</details>
+
+
+<details>
+<summary>GET /content/:id/</summary>
+Get basic information about some content its id
+
+__responses__
+
+- 200 - Content information
+This content was found and its basic information was returned
+
+```JSON
+{
+    "content": {
+        "id": "content id",
+        "author": "author user id",
+        "tags": "content tags",
+        "mime": "content mimetype",
+        "like_count": "number of likes on this content",
+        "dislike_count": "number of dislikes on this content",
+        "repub_count": "number of repubs on this content",
+        "view_count": "number of views on this content",
+        "comment_count": "number of comments on this content",
+        "created": "creation timestamp",
+        "featured": "is this content featured?",
+        "featurable": "may this content be featured?",
+        "removed": "was this content removed?"
+    }
+}
+```
+
+- 401 - Not Authorized
+No Authorization header was included with this request
+
+```JSON
+{
+    "error": "not_authorized"
+}
+```
+
+- 404 - No such content
+Content of this id does not exist
+
+```JSON
+{
+    "error": "no_such_content"
 }
 ```
 
@@ -212,13 +283,15 @@ This user was found and their basic profile was returned
 
 ```JSON
 {
-    "id": "User's UUIDv4",
-    "nick": "User's nickname",
-    "bio": "bio (or, about) section",
-    "subscriber_count": "number of users subscribed to this user",
-    "subscription_count": "number of users this user has subscribed to",
-    "post_count": "number of posts and reposts on this user's timeline",
-    "created": "unix creation timestamp"
+    "user": {
+        "id": "user's UUIDv4",
+        "nick": "user's nickname",
+        "bio": "bio (or, about) section",
+        "subscriber_count": "number of users subscribed to this user",
+        "subscription_count": "number of users this user has subscribed to",
+        "post_count": "number of posts and reposts on this user's timeline",
+        "created": "unix creation timestamp"
+    }
 }
 ```
 
@@ -255,13 +328,15 @@ This user was found and their basic profile was returned
 
 ```JSON
 {
-    "id": "User's UUIDv4",
-    "nick": "User's nickname",
-    "bio": "bio (or, about) section",
-    "subscriber_count": "number of users subscribed to this user",
-    "subscription_count": "number of users this user has subscribed to",
-    "post_count": "number of posts and reposts on this user's timeline",
-    "created": "unix creation timestamp"
+    "user": {
+        "id": "user's UUIDv4",
+        "nick": "user's nickname",
+        "bio": "bio (or, about) section",
+        "subscriber_count": "number of users subscribed to this user",
+        "subscription_count": "number of users this user has subscribed to",
+        "post_count": "number of posts and reposts on this user's timeline",
+        "created": "unix creation timestamp"
+    }
 }
 ```
 

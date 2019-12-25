@@ -60,13 +60,15 @@ vars:
                 lang: JSON
                 content:
                     {
-                        "id": "User's UUIDv4",
-                        "nick": "User's nickname",
-                        "bio": "bio (or, about) section",
-                        "subscriber_count": "number of users subscribed to this user",
-                        "subscription_count": "number of users this user has subscribed to",
-                        "post_count": "number of posts and reposts on this user's timeline",
-                        "created": "unix creation timestamp"
+                        "user": {
+                            "id": "user's UUIDv4",
+                            "nick": "user's nickname",
+                            "bio": "bio (or, about) section",
+                            "subscriber_count": "number of users subscribed to this user",
+                            "subscription_count": "number of users this user has subscribed to",
+                            "post_count": "number of posts and reposts on this user's timeline",
+                            "created": "unix creation timestamp"
+                        }
                     }
         no_such_user:
                 title: No such user
