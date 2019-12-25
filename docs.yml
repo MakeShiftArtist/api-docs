@@ -1,0 +1,108 @@
+globals:
+    responses:
+        "*":
+            401:
+                title: Not Authorized
+                description: No Authorization header was included with this request
+                body:
+                    lang: JSON
+                    content: {"error": "not_authorized"}
+            404:
+                title: Not Found
+                description: This route was not found, or the information of this dynamic route is not found
+                body:
+                    lang: JSON
+                    content: {"error": "not_found"}
+        POST:
+            400:
+                title: Bad Request
+                description: Request data is malformed or data is missing
+                body:
+                    lang: JSON
+                    content: {"error": "bad_request"}
+    request_headers:
+        "*":
+            - $vars.header.auth
+
+vars:
+    response:
+        user_create:
+            lang: JSON
+            content: {"user": "created"}
+        forbidden:
+            lang: JSON
+            content: {"error": "forbidden"}
+        user_info:
+            title: User information
+            description: This user was found and their basic profile was returned
+            body:
+                lang: JSON
+                content:
+                    {
+                        "id": "User's UUIDv4",
+                        "nick": "User's nickname",
+                        "bio": "bio (or, about) section",
+                        "subscriber_count": "number of users subscribed to this user",
+                        "subscription_count": "number of users this user has subscribed to",
+                        "post_count": "number of posts and reposts on this user's timeline",
+                        "created": "unix creation timestamp"
+                    }
+        no_such_user:
+                title: No such user
+                description: A user of this id does not exist
+                body:
+                    lang: JSON
+                    content: {"error": "no_such_user"}
+    header:
+        auth:
+            name: Authorization
+            value: Basic or Bearer authorization
+            required: true
+
+routes:
+    /user/:
+        POST:
+            description: Create a new user
+            headers:
+                - $header.auth
+            body:
+                lang: JSON
+                content:
+                    {
+                        "email": "<account_email>",
+                        "nick": "<account_nick>",
+                        "password": "<account_password>"
+                    }
+            responses:
+                200:
+                    title: Account Created
+                    description: This account was created
+                    body: $response.user_create
+                403:
+                    title: Forbidden
+                    description: This device or ip address/range may not create users
+                    body: $response.forbidden
+                409:
+                    title: Conflict
+                    description: The requested `nick` or `email` is already in use
+                    body:
+                        lang: JSON
+                        content: {"error": "<value>_conflict"}
+
+    /user/:id:
+        GET:
+            description: Get information about some user by their id
+            headers:
+                - $header.auth
+            responses:
+                200: $response.user_info
+                404: $response.no_such_user
+
+    /users/nick/:nick:
+        GET:
+            description: Get information about some user by their nick
+            headers:
+                - $header.auth
+            responses:
+                200: $response.user_info
+                404: $response.no_such_user
