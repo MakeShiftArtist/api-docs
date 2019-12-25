@@ -70,12 +70,44 @@ vars:
                             "created": "unix creation timestamp"
                         }
                     }
+
         no_such_user:
                 title: No such user
                 description: A user of this id does not exist
                 body:
                     lang: JSON
                     content: {"error": "no_such_user"}
+
+        content_info:
+            title: Content information
+            description: This content was found and its basic information was returned
+            body:
+                lang: JSON
+                content: {
+                        "content": {
+                                "id": "content id",
+                                "author": "author user id",
+                                "tags": "content tags",
+                                "mime": "content mimetype",
+                                "like_count": "number of likes on this content",
+                                "dislike_count": "number of dislikes on this content",
+                                "repub_count": "number of repubs on this content",
+                                "view_count": "number of views on this content",
+                                "comment_count": "number of comments on this content",
+                                "created": "creation timestamp",
+                                "featured": "is this content featured?",
+                                "featurable": "may this content be featured?",
+                                "removed": "was this content removed?"
+                            }
+                    }
+
+        no_such_content:
+            title: No such content
+            description: Content of this id does not exist
+            body:
+                lang: JSON
+                content: {"error": "no_such_content"}
+
         login:
             title: Sucessful login
             description: The information provided was correct a login token and new secret was produced
@@ -89,6 +121,7 @@ vars:
                             "secret": "secret to be used for logging in so that a password is not stored"
                             }
                     }
+
         check:
             title: Resource availability was checked
             description: Information about the queried resource was returned
@@ -98,6 +131,25 @@ vars:
                     {
                         "exists": "does this resurce already exist bound to some user?"
                     }
+
+        create_content:
+            title: Content was accepted
+            description: The uploaded media was accepted and is being uploaded. Returned id may not yet be live
+            body:
+                lang: JSON
+                content:
+                    {
+                        "content": {
+                                "id": "id of the created content"
+                            }
+                    }
+
+        banned:
+            title: Content was rejected
+            description: The uploaded content was rejected because this user is banned from content creation
+            body:
+                lang: JSON
+                content: {"error": "forbidden"}
 
     header:
         auth:
@@ -163,3 +215,13 @@ routes:
         POST:
             description: Upload some image or video content
             body: $post.create_content
+            responses:
+                200: $response.create_content
+                403: $response.banned
+
+    /content/:id/:
+        GET:
+            description: Get basic information about some content its id
+            responses:
+                200: $response.content_info
+                404: $response.no_such_content
