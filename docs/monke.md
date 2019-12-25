@@ -16,7 +16,8 @@ Create a new user
 
 __responses__
 
-- 401 - Not AuthorizedNo Authorization header was included with this request
+- 401 - Not Authorized
+No Authorization header was included with this request
 
 ```JSON
 {
@@ -24,7 +25,8 @@ __responses__
 }
 ```
 
-- 404 - Not FoundThis route was not found, or the information of this dynamic route is not found
+- 404 - Not Found
+This route was not found, or the information of this dynamic route is not found
 
 ```JSON
 {
@@ -32,7 +34,8 @@ __responses__
 }
 ```
 
-- 400 - Bad RequestRequest data is malformed or data is missing
+- 400 - Bad Request
+Request data is malformed or data is missing
 
 ```JSON
 {
@@ -40,7 +43,8 @@ __responses__
 }
 ```
 
-- 200 - Account CreatedThis account was created
+- 200 - Account Created
+This account was created
 
 ```JSON
 {
@@ -48,7 +52,8 @@ __responses__
 }
 ```
 
-- 403 - ForbiddenThis device or ip address/range may not create users
+- 403 - Forbidden
+This device or ip address/range may not create users
 
 ```JSON
 {
@@ -56,7 +61,8 @@ __responses__
 }
 ```
 
-- 409 - ConflictThe requested `nick` or `email` is already in use
+- 409 - Conflict
+The requested `nick` or `email` is already in use
 
 ```JSON
 {
@@ -78,7 +84,8 @@ Get information about some user by their id
 
 __responses__
 
-- 401 - Not AuthorizedNo Authorization header was included with this request
+- 401 - Not Authorized
+No Authorization header was included with this request
 
 ```JSON
 {
@@ -86,7 +93,8 @@ __responses__
 }
 ```
 
-- 404 - No such userA user of this id does not exist
+- 404 - No such user
+A user of this id does not exist
 
 ```JSON
 {
@@ -94,7 +102,8 @@ __responses__
 }
 ```
 
-- 200 - User informationThis user was found and their basic profile was returned
+- 200 - User information
+This user was found and their basic profile was returned
 
 ```JSON
 {
@@ -122,7 +131,8 @@ Get information about some user by their nick
 
 __responses__
 
-- 401 - Not AuthorizedNo Authorization header was included with this request
+- 401 - Not Authorized
+No Authorization header was included with this request
 
 ```JSON
 {
@@ -130,7 +140,8 @@ __responses__
 }
 ```
 
-- 404 - No such userA user of this id does not exist
+- 404 - No such user
+A user of this id does not exist
 
 ```JSON
 {
@@ -138,7 +149,8 @@ __responses__
 }
 ```
 
-- 200 - User informationThis user was found and their basic profile was returned
+- 200 - User information
+This user was found and their basic profile was returned
 
 ```JSON
 {
