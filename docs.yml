@@ -14,6 +14,7 @@ globals:
                 body:
                     lang: JSON
                     content: {"error": "bad_request"}
+
     request_headers:
         "*":
             - $vars.header.auth
@@ -48,6 +49,11 @@ vars:
         user_create:
             lang: JSON
             content: {"user": "created"}
+
+        report:
+            lang: JSON
+            content: {"reason": "report reason"}
+
         forbidden:
             lang: JSON
             content: {"error": "forbidden"}
@@ -151,6 +157,10 @@ vars:
                 lang: JSON
                 content: {"error": "forbidden"}
 
+        accepted:
+            title: Accepted
+            description: The sent content was accepted and processed
+
     header:
         auth:
             name: Authorization
@@ -183,6 +193,14 @@ routes:
             description: Get information about some user by their id
             responses:
                 200: $response.user_info
+                404: $response.no_such_user
+
+    /user/:id/reports/:
+        PUT:
+            description: Report a usre for some reason
+            body: $body.report
+            responses:
+                204: $response.accepted
                 404: $response.no_such_user
 
     /user/nick/:nick:
@@ -225,3 +243,16 @@ routes:
             responses:
                 200: $response.content_info
                 404: $response.no_such_content
+
+    /feed/all/:
+        GET:
+            description: Get a paginated slice of the all feed
+            headers:
+                - name: size
+                  description: Number of items to fetch
+                  default: 50
+                  required: false
+                - name: offset
+                  description: paginated index offset
+                  default: 0
+                  required: false

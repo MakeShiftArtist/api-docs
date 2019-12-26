@@ -210,6 +210,30 @@ Content of this id does not exist
 
 
 <details>
+<summary>GET /feed/all/</summary>
+Get a paginated slice of the all feed
+
+|name|description|default|required|
+| - | - | - | - |
+|size|Number of items to fetch|50|False|
+|offset|paginated index offset|0|False|
+
+__responses__
+
+- 401 - Not Authorized
+No Authorization header was included with this request
+
+```JSON
+{
+    "error": "not_authorized"
+}
+```
+
+
+</details>
+
+
+<details>
 <summary>POST /user/</summary>
 Create a new user
 
@@ -294,6 +318,43 @@ This user was found and their basic profile was returned
     }
 }
 ```
+
+- 401 - Not Authorized
+No Authorization header was included with this request
+
+```JSON
+{
+    "error": "not_authorized"
+}
+```
+
+- 404 - No such user
+A user of this id does not exist
+
+```JSON
+{
+    "error": "no_such_user"
+}
+```
+
+
+</details>
+
+
+<details>
+<summary>PUT /user/:id/reports/</summary>
+Report a usre for some reason
+
+```JSON
+{
+    "reason": "report reason"
+}
+```
+
+__responses__
+
+- 204 - Accepted
+The sent content was accepted and processed
 
 - 401 - Not Authorized
 No Authorization header was included with this request
