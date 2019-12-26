@@ -2,6 +2,10 @@
 <summary>POST /auth/</summary>
 Log in with an email/password, or an email/secret
 
+|name|value|required|
+| - | - | - |
+|Authorization|Basic or Bearer authorization|True|
+
 ```JSON
 {
     "email": "email of this account",
@@ -51,6 +55,10 @@ No Authorization header was included with this request
 <summary>GET /check/email/:email/</summary>
 Check an email for availability
 
+|name|value|required|
+| - | - | - |
+|Authorization|Basic or Bearer authorization|True|
+
 __responses__
 
 - 200 - Resource availability was checked
@@ -79,6 +87,10 @@ No Authorization header was included with this request
 <summary>GET /check/nick/:nick/</summary>
 Check a nickname for availability
 
+|name|value|required|
+| - | - | - |
+|Authorization|Basic or Bearer authorization|True|
+
 __responses__
 
 - 200 - Resource availability was checked
@@ -105,12 +117,22 @@ No Authorization header was included with this request
 
 <details>
 <summary>POST /content/</summary>
-Upload some image or video content
+Upload some image or video content. This should be a multipart POST with JSON data in a part, and the file upload in another
+
+|name|value|required|
+| - | - | - |
+|Authorization|Basic or Bearer authorization|True|
 
 ```JSON
 {
     "mime": "content mime type",
-    "nsfw": "is this content not safe for work?"
+    "nsfw": "is this content not safe for work?",
+    "featurable": "may this content be featured?",
+    "tags": [
+        "list",
+        "of",
+        "tags"
+    ]
 }
 ```
 
@@ -128,7 +150,7 @@ The uploaded media was accepted and is being uploaded. Returned id may not yet b
 ```
 
 - 400 - Bad Request
-Request data is malformed or data is missing
+Request data is malformed, data is missing, or the uploaded media does not match given mime
 
 ```JSON
 {
@@ -161,6 +183,10 @@ The uploaded content was rejected because this user is banned from content creat
 <details>
 <summary>GET /content/:id/</summary>
 Get basic information about some content its id
+
+|name|value|required|
+| - | - | - |
+|Authorization|Basic or Bearer authorization|True|
 
 __responses__
 
@@ -213,6 +239,10 @@ Content of this id does not exist
 <summary>GET /feed/all/</summary>
 Get a paginated slice of the all feed
 
+|name|value|required|
+| - | - | - |
+|Authorization|Basic or Bearer authorization|True|
+
 |name|description|default|required|
 | - | - | - | - |
 |size|Number of items to fetch|50|False|
@@ -262,6 +292,10 @@ No Authorization header was included with this request
 <details>
 <summary>POST /user/</summary>
 Create a new user
+
+|name|value|required|
+| - | - | - |
+|Authorization|Basic or Bearer authorization|True|
 
 ```JSON
 {
@@ -326,6 +360,10 @@ The requested `nick` or `email` is already in use
 <summary>GET /user/:id/</summary>
 Get information about some user by their id
 
+|name|value|required|
+| - | - | - |
+|Authorization|Basic or Bearer authorization|True|
+
 __responses__
 
 - 200 - User information
@@ -371,6 +409,10 @@ A user of this id does not exist
 <summary>PUT /user/:id/reports/</summary>
 Report a usre for some reason
 
+|name|value|required|
+| - | - | - |
+|Authorization|Basic or Bearer authorization|True|
+
 ```JSON
 {
     "reason": "report reason"
@@ -407,6 +449,10 @@ A user of this id does not exist
 <details>
 <summary>GET /user/nick/:nick</summary>
 Get information about some user by their nick
+
+|name|value|required|
+| - | - | - |
+|Authorization|Basic or Bearer authorization|True|
 
 __responses__
 

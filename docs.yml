@@ -17,7 +17,9 @@ globals:
 
     request_headers:
         "*":
-            - $vars.header.auth
+            - name: Authorization
+              value: Basic or Bearer authorization
+              required: true
 
 vars:
     post:
