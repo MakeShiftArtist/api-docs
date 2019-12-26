@@ -31,6 +31,7 @@ vars:
                     "nick": "unused nick to register",
                     "password": "passowrd to bind to this account"
                 }
+
         login:
             lang: JSON
             content:
@@ -39,12 +40,15 @@ vars:
                     "password": "password to this account",
                     "secret": "or the secret produced by the server on last login"
                 }
+
         create_content:
             lang: JSON
             content:
                 {
                     "mime": "content mime type",
-                    "nsfw": "is this content not safe for work?"
+                    "nsfw": "is this content not safe for work?",
+                    "featurable": "may this content be featured?",
+                    "tags": ["list", "of", "tags"]
                 }
 
     body:
@@ -186,6 +190,13 @@ vars:
                             }, ...]
                     }
 
+        bad_request:
+            title: Bad Request
+            description: Request data is malformed or data is missing
+            body:
+                lang: JSON
+                content: {"error": "bad_request"}
+
     header:
         auth:
             name: Authorization
@@ -268,10 +279,14 @@ routes:
 
     /content/:
         POST:
-            description: Upload some image or video content
+            description: Upload some image or video content. This should be a multipart POST with JSON data in a part, and the file upload in another
             body: $post.create_content
             responses:
                 200: $response.create_content
+                400:
+                    title: $response.bad_request.title
+                    description: Request data is malformed, data is missing, or the uploaded media does not match given mime
+                    body: $response.bad_request.body
                 403: $response.banned
 
     /content/:id/:
