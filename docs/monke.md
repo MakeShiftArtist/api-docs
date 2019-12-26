@@ -220,6 +220,32 @@ Get a paginated slice of the all feed
 
 __responses__
 
+- 200 - Content feed
+A paginated slice of this feed
+
+```JSON
+{
+    "content": [
+        {
+            "id": "content id",
+            "author": "author user id",
+            "tags": "content tags",
+            "mime": "content mimetype",
+            "like_count": "number of likes on this content",
+            "dislike_count": "number of dislikes on this content",
+            "repub_count": "number of repubs on this content",
+            "view_count": "number of views on this content",
+            "comment_count": "number of comments on this content",
+            "created": "creation timestamp",
+            "featured": "is this content featured?",
+            "featurable": "may this content be featured?",
+            "removed": "was this content removed?"
+        },
+        "..."
+    ]
+}
+```
+
 - 401 - Not Authorized
 No Authorization header was included with this request
 

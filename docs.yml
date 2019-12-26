@@ -161,6 +161,29 @@ vars:
             title: Accepted
             description: The sent content was accepted and processed
 
+        feed:
+            title: Content feed
+            description: A paginated slice of this feed
+            body:
+                lang: JSON
+                content: {
+                        "content": [{
+                                "id": "content id",
+                                "author": "author user id",
+                                "tags": "content tags",
+                                "mime": "content mimetype",
+                                "like_count": "number of likes on this content",
+                                "dislike_count": "number of dislikes on this content",
+                                "repub_count": "number of repubs on this content",
+                                "view_count": "number of views on this content",
+                                "comment_count": "number of comments on this content",
+                                "created": "creation timestamp",
+                                "featured": "is this content featured?",
+                                "featurable": "may this content be featured?",
+                                "removed": "was this content removed?"
+                            }, ...]
+                    }
+
     header:
         auth:
             name: Authorization
@@ -262,3 +285,5 @@ routes:
             query_strings:
                 - $query_string.size
                 - $query_string.offset
+            responses:
+                200: $response.feed
