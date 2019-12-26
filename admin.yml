@@ -1,0 +1,293 @@
+globals:
+    responses:
+        "*":
+            401:
+                title: Not Authorized
+                description: No Authorization header was included with this request
+                body:
+                    lang: JSON
+                    content: {"error": "not_authorized"}
+            403:
+                title: Forbidden
+                description: only admins may make this request
+                body:
+                    lang: JSON
+                    content: {"error": "forbidden"}
+
+        POST:
+            400:
+                title: Bad Request
+                description: Request data is malformed or data is missing
+                body:
+                    lang: JSON
+                    content: {"error": "bad_request"}
+
+    request_headers:
+        "*":
+            - $vars.header.auth
+
+vars:
+    post:
+        create_user:
+            lang: JSON
+            content:
+                {
+                    "email": "unused email to register",
+                    "nick": "unused nick to register",
+                    "password": "passowrd to bind to this account"
+                }
+        login:
+            lang: JSON
+            content:
+                {
+                    "email": "email of this account",
+                    "password": "password to this account",
+                    "secret": "or the secret produced by the server on last login"
+                }
+        create_content:
+            lang: JSON
+            content:
+                {
+                    "mime": "content mime type",
+                    "nsfw": "is this content not safe for work?"
+                }
+
+    body:
+        user_create:
+            lang: JSON
+            content: {"user": "created"}
+
+        user_ban:
+            lang: JSON
+            content:
+                {
+                    "reason": "reason for this ban",
+                    "expires": "expiry timestamp of this ban",
+                    "duration": "duration of this ban, can be used instead of timestamp"
+                }
+
+        report:
+            lang: JSON
+            content: {"reason": "report reason"}
+
+        forbidden:
+            lang: JSON
+            content: {"error": "forbidden"}
+
+    response:
+        user_info:
+            title: User information
+            description: This user was found and their basic profile was returned
+            body:
+                lang: JSON
+                content:
+                    {
+                        "user": {
+                            "id": "user's UUIDv4",
+                            "nick": "user's nickname",
+                            "bio": "bio (or, about) section",
+                            "subscriber_count": "number of users subscribed to this user",
+                            "subscription_count": "number of users this user has subscribed to",
+                            "post_count": "number of posts and reposts on this user's timeline",
+                            "created": "unix creation timestamp"
+                        }
+                    }
+
+        no_such_user:
+                title: No such user
+                description: A user of this id does not exist
+                body:
+                    lang: JSON
+                    content: {"error": "no_such_user"}
+
+        no_such_ban:
+                title: No such ban for this user
+                description: A ban of this id does not exist for this user
+                body:
+                    lang: JSON
+                    content: {"error": "no_such_ban"}
+
+        content_info:
+            title: Content information
+            description: This content was found and its basic information was returned
+            body:
+                lang: JSON
+                content: {
+                        "content": {
+                                "id": "content id",
+                                "author": "author user id",
+                                "tags": "content tags",
+                                "mime": "content mimetype",
+                                "like_count": "number of likes on this content",
+                                "dislike_count": "number of dislikes on this content",
+                                "repub_count": "number of repubs on this content",
+                                "view_count": "number of views on this content",
+                                "comment_count": "number of comments on this content",
+                                "created": "creation timestamp",
+                                "featured": "is this content featured?",
+                                "featurable": "may this content be featured?",
+                                "removed": "was this content removed?"
+                            }
+                    }
+
+        no_such_content:
+            title: No such content
+            description: Content of this id does not exist
+            body:
+                lang: JSON
+                content: {"error": "no_such_content"}
+
+        login:
+            title: Sucessful login
+            description: The information provided was correct a login token and new secret was produced
+            body:
+                lang: JSON
+                content:
+                    {
+                        "auth": {
+                            "token": "Bearer token to be used in headers for authentication dependant requests",
+                            "expires": "expiry timestamp of this token",
+                            "secret": "secret to be used for logging in so that a password is not stored"
+                            }
+                    }
+
+        check:
+            title: Resource availability was checked
+            description: Information about the queried resource was returned
+            body:
+                lang: JSON
+                content:
+                    {
+                        "exists": "does this resurce already exist bound to some user?"
+                    }
+
+        create_content:
+            title: Content was accepted
+            description: The uploaded media was accepted and is being uploaded. Returned id may not yet be live
+            body:
+                lang: JSON
+                content:
+                    {
+                        "content": {
+                                "id": "id of the created content"
+                            }
+                    }
+
+        banned:
+            title: Content was rejected
+            description: The uploaded content was rejected because this user is banned from content creation
+            body:
+                lang: JSON
+                content: {"error": "forbidden"}
+
+        accepted:
+            title: Accepted
+            description: The sent content was accepted and processed
+
+        reports:
+            title: Reports
+            description: Reports made on this resource
+            body:
+                lang: JSON
+                content:
+                    {
+                        "reports": [{
+                            "reason": "user given report reason",
+                            "user_id": "id of the user who made this report",
+                            "id": "id of this report",
+                            "created": "report date"
+                        }, ...]
+                    }
+
+        ban:
+            title: User ban
+            description: A ban on a user
+            body:
+                lang: JSON
+                content:
+                    {
+                        "ban": {
+                            "reason": "user given report reason",
+                            "user_id": "id of the user who created this ban",
+                            "id": "id of this ban",
+                            "created": "ban date",
+                            "expires": "ban expiry date"
+                        }
+                    }
+
+        bans:
+            title: Bans
+            description: Bans cast on this user
+            body:
+                lang: JSON
+                content:
+                    {
+                        "bans": [{
+                            "reason": "user given report reason",
+                            "user_id": "id of the user who created this ban",
+                            "id": "id of this ban",
+                            "created": "ban date",
+                            "expires": "ban expiry date"
+                        }, ...]
+                    }
+
+        no_admin:
+            title: Forbidden
+            description: only admins may make this request
+            body:
+                lang: JSON
+                content: {"error": "forbidden"}
+
+    header:
+        auth:
+            name: Authorization
+            value: Basic or Bearer authorization
+            required: true
+
+    query_string:
+        size:
+            name: size
+            description: Number of items to fetch
+            default: 50
+            required: false
+        offset:
+            name: offset
+            description: paginated index offset
+            default: 0
+            required: false
+
+routes:
+    /user/:id/reports/:
+        GET:
+            description: Get a paginated slice of user reports
+            query_strings:
+                - $query_string.size
+                - $query_string.offset
+            responses:
+                200: $response.reports
+
+    /user/:id/ban/:
+        GET:
+            description: Get a paginated slice of user bans
+            query_strings:
+                - $query_string.size
+                - $query_string.offset
+            responses:
+                200: $response.bans
+        PUT:
+            description: Ban a user for some reason
+            body: $request.user_ban
+            responses:
+                200: $response.ban
+
+    /user/:id/ban/:id/:
+        GET:
+            description: Get information about a ban
+            responses:
+                200: $response.ban
+                404: $response.no_such_ban
+        DELETE:
+            description: rescind a ban
+            responses:
+                204: $response.accepted
+                404: $response.no_such_ban
