@@ -167,6 +167,18 @@ vars:
             value: Basic or Bearer authorization
             required: true
 
+    query_string:
+        size:
+            name: size
+            description: Number of items to fetch
+            default: 50
+            required: false
+        offset:
+            name: offset
+            description: paginated index offset
+            default: 0
+            required: false
+
 routes:
     /user/:
         POST:
@@ -247,12 +259,6 @@ routes:
     /feed/all/:
         GET:
             description: Get a paginated slice of the all feed
-            headers:
-                - name: size
-                  description: Number of items to fetch
-                  default: 50
-                  required: false
-                - name: offset
-                  description: paginated index offset
-                  default: 0
-                  required: false
+            query_strings:
+                - $query_string.size
+                - $query_string.offset
