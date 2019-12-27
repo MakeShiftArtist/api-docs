@@ -117,7 +117,7 @@ No Authorization header was included with this request
 
 <details>
 <summary>POST /content/</summary>
-Upload some image or video content. This should be a multipart POST with JSON data in a part, and the file upload in another
+Upload some image or video content. This should be a multipart POST with JSON data in part json, and the file upload in part file
 
 |name|value|required|
 | - | - | - |
@@ -173,6 +173,15 @@ The uploaded content was rejected because this user is banned from content creat
 ```JSON
 {
     "error": "forbidden"
+}
+```
+
+- 415 - Unsupported Media
+mimetype provided is not a supported upload type
+
+```JSON
+{
+    "error": "bad_media"
 }
 ```
 
@@ -344,7 +353,7 @@ This device or ip address/range may not create users
 ```
 
 - 409 - Conflict
-The requested `nick` or `email` is already in use
+The requested nick or email is already in use
 
 ```JSON
 {
