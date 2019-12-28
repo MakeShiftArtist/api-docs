@@ -109,6 +109,7 @@ vars:
                                 "created": "creation timestamp",
                                 "featured": "is this content featured?",
                                 "featurable": "may this content be featured?",
+                                "nsfw": "is this content nsfw?",
                                 "removed": "was this content removed?"
                             }
                     }

@@ -2,6 +2,8 @@
 <summary>POST /auth/</summary>
 Log in with an email/password, or an email/secret
 
+__request_headers__
+
 |name|value|required|
 | - | - | - |
 |Authorization|Basic or Bearer authorization|True|
@@ -17,6 +19,8 @@ Log in with an email/password, or an email/secret
 __responses__
 
 - 200 - Sucessful login
+Sucessful login
+
 The information provided was correct a login token and new secret was produced
 
 ```JSON
@@ -30,6 +34,8 @@ The information provided was correct a login token and new secret was produced
 ```
 
 - 400 - Bad Request
+Bad Request
+
 Request data is malformed or data is missing
 
 ```JSON
@@ -39,6 +45,8 @@ Request data is malformed or data is missing
 ```
 
 - 401 - Not Authorized
+Not Authorized
+
 No Authorization header was included with this request
 
 ```JSON
@@ -55,6 +63,8 @@ No Authorization header was included with this request
 <summary>GET /check/email/:email/</summary>
 Check an email for availability
 
+__request_headers__
+
 |name|value|required|
 | - | - | - |
 |Authorization|Basic or Bearer authorization|True|
@@ -62,6 +72,8 @@ Check an email for availability
 __responses__
 
 - 200 - Resource availability was checked
+Resource availability was checked
+
 Information about the queried resource was returned
 
 ```JSON
@@ -71,6 +83,8 @@ Information about the queried resource was returned
 ```
 
 - 401 - Not Authorized
+Not Authorized
+
 No Authorization header was included with this request
 
 ```JSON
@@ -87,6 +101,8 @@ No Authorization header was included with this request
 <summary>GET /check/nick/:nick/</summary>
 Check a nickname for availability
 
+__request_headers__
+
 |name|value|required|
 | - | - | - |
 |Authorization|Basic or Bearer authorization|True|
@@ -94,6 +110,8 @@ Check a nickname for availability
 __responses__
 
 - 200 - Resource availability was checked
+Resource availability was checked
+
 Information about the queried resource was returned
 
 ```JSON
@@ -103,6 +121,8 @@ Information about the queried resource was returned
 ```
 
 - 401 - Not Authorized
+Not Authorized
+
 No Authorization header was included with this request
 
 ```JSON
@@ -118,6 +138,8 @@ No Authorization header was included with this request
 <details>
 <summary>POST /content/</summary>
 Upload some image or video content. This should be a multipart POST with JSON data in part json, and the file upload in part file
+
+__request_headers__
 
 |name|value|required|
 | - | - | - |
@@ -139,6 +161,8 @@ Upload some image or video content. This should be a multipart POST with JSON da
 __responses__
 
 - 200 - Content was accepted
+Content was accepted
+
 The uploaded media was accepted and is being uploaded. Returned id may not yet be live
 
 ```JSON
@@ -150,6 +174,8 @@ The uploaded media was accepted and is being uploaded. Returned id may not yet b
 ```
 
 - 400 - Bad Request
+Bad Request
+
 Request data is malformed, data is missing, or the uploaded media does not match given mime
 
 ```JSON
@@ -159,6 +185,8 @@ Request data is malformed, data is missing, or the uploaded media does not match
 ```
 
 - 401 - Not Authorized
+Not Authorized
+
 No Authorization header was included with this request
 
 ```JSON
@@ -168,6 +196,8 @@ No Authorization header was included with this request
 ```
 
 - 403 - Content was rejected
+Content was rejected
+
 The uploaded content was rejected because this user is banned from content creation
 
 ```JSON
@@ -177,6 +207,8 @@ The uploaded content was rejected because this user is banned from content creat
 ```
 
 - 415 - Unsupported Media
+Unsupported Media
+
 mimetype provided is not a supported upload type
 
 ```JSON
@@ -193,6 +225,8 @@ mimetype provided is not a supported upload type
 <summary>GET /content/:id/</summary>
 Get basic information about some content its id
 
+__request_headers__
+
 |name|value|required|
 | - | - | - |
 |Authorization|Basic or Bearer authorization|True|
@@ -200,6 +234,8 @@ Get basic information about some content its id
 __responses__
 
 - 200 - Content information
+Content information
+
 This content was found and its basic information was returned
 
 ```JSON
@@ -217,12 +253,15 @@ This content was found and its basic information was returned
         "created": "creation timestamp",
         "featured": "is this content featured?",
         "featurable": "may this content be featured?",
+        "nsfw": "is this content nsfw?",
         "removed": "was this content removed?"
     }
 }
 ```
 
 - 401 - Not Authorized
+Not Authorized
+
 No Authorization header was included with this request
 
 ```JSON
@@ -232,6 +271,8 @@ No Authorization header was included with this request
 ```
 
 - 404 - No such content
+No such content
+
 Content of this id does not exist
 
 ```JSON
@@ -248,18 +289,24 @@ Content of this id does not exist
 <summary>GET /feed/all/</summary>
 Get a paginated slice of the all feed
 
-|name|value|required|
-| - | - | - |
-|Authorization|Basic or Bearer authorization|True|
+__query_strings__
 
 |name|description|default|required|
 | - | - | - | - |
 |size|Number of items to fetch|50|False|
 |offset|paginated index offset|0|False|
 
+__request_headers__
+
+|name|value|required|
+| - | - | - |
+|Authorization|Basic or Bearer authorization|True|
+
 __responses__
 
 - 200 - Content feed
+Content feed
+
 A paginated slice of this feed
 
 ```JSON
@@ -286,6 +333,8 @@ A paginated slice of this feed
 ```
 
 - 401 - Not Authorized
+Not Authorized
+
 No Authorization header was included with this request
 
 ```JSON
@@ -302,6 +351,8 @@ No Authorization header was included with this request
 <summary>POST /user/</summary>
 Create a new user
 
+__request_headers__
+
 |name|value|required|
 | - | - | - |
 |Authorization|Basic or Bearer authorization|True|
@@ -317,6 +368,8 @@ Create a new user
 __responses__
 
 - 200 - Account Created
+Account Created
+
 This account was created
 
 ```JSON
@@ -326,6 +379,8 @@ This account was created
 ```
 
 - 400 - Bad Request
+Bad Request
+
 Request data is malformed or data is missing
 
 ```JSON
@@ -335,6 +390,8 @@ Request data is malformed or data is missing
 ```
 
 - 401 - Not Authorized
+Not Authorized
+
 No Authorization header was included with this request
 
 ```JSON
@@ -344,6 +401,8 @@ No Authorization header was included with this request
 ```
 
 - 403 - Forbidden
+Forbidden
+
 This device or ip address/range may not create users
 
 ```JSON
@@ -353,6 +412,8 @@ This device or ip address/range may not create users
 ```
 
 - 409 - Conflict
+Conflict
+
 The requested nick or email is already in use
 
 ```JSON
@@ -369,6 +430,8 @@ The requested nick or email is already in use
 <summary>GET /user/:id/</summary>
 Get information about some user by their id
 
+__request_headers__
+
 |name|value|required|
 | - | - | - |
 |Authorization|Basic or Bearer authorization|True|
@@ -376,6 +439,8 @@ Get information about some user by their id
 __responses__
 
 - 200 - User information
+User information
+
 This user was found and their basic profile was returned
 
 ```JSON
@@ -393,6 +458,8 @@ This user was found and their basic profile was returned
 ```
 
 - 401 - Not Authorized
+Not Authorized
+
 No Authorization header was included with this request
 
 ```JSON
@@ -402,6 +469,8 @@ No Authorization header was included with this request
 ```
 
 - 404 - No such user
+No such user
+
 A user of this id does not exist
 
 ```JSON
@@ -418,6 +487,8 @@ A user of this id does not exist
 <summary>PUT /user/:id/reports/</summary>
 Report a usre for some reason
 
+__request_headers__
+
 |name|value|required|
 | - | - | - |
 |Authorization|Basic or Bearer authorization|True|
@@ -431,9 +502,13 @@ Report a usre for some reason
 __responses__
 
 - 204 - Accepted
+Accepted
+
 The sent content was accepted and processed
 
 - 401 - Not Authorized
+Not Authorized
+
 No Authorization header was included with this request
 
 ```JSON
@@ -443,6 +518,8 @@ No Authorization header was included with this request
 ```
 
 - 404 - No such user
+No such user
+
 A user of this id does not exist
 
 ```JSON
@@ -459,6 +536,8 @@ A user of this id does not exist
 <summary>GET /user/nick/:nick</summary>
 Get information about some user by their nick
 
+__request_headers__
+
 |name|value|required|
 | - | - | - |
 |Authorization|Basic or Bearer authorization|True|
@@ -466,6 +545,8 @@ Get information about some user by their nick
 __responses__
 
 - 200 - User information
+User information
+
 This user was found and their basic profile was returned
 
 ```JSON
@@ -483,6 +564,8 @@ This user was found and their basic profile was returned
 ```
 
 - 401 - Not Authorized
+Not Authorized
+
 No Authorization header was included with this request
 
 ```JSON
@@ -492,6 +575,8 @@ No Authorization header was included with this request
 ```
 
 - 404 - No such user
+No such user
+
 A user of this id does not exist
 
 ```JSON
