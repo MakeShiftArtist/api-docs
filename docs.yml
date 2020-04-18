@@ -64,6 +64,10 @@ vars:
             lang: JSON
             content: {"error": "forbidden"}
 
+        conflict:
+            lang: JSON
+            content: {"conflict": "conflicting key"}
+
     response:
         user_info:
             title: User information
@@ -240,9 +244,7 @@ routes:
                 409:
                     title: Conflict
                     description: The requested nick or email is already in use
-                    body:
-                        lang: JSON
-                        content: {"error": "<value>_conflict"}
+                    body: $body.conflict
 
     /user/:id/:
         GET:

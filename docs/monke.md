@@ -19,10 +19,6 @@ __request_headers__
 __responses__
 
 - 200 - Sucessful login
-Sucessful login
-
-The information provided was correct a login token and new secret was produced
-
 ```JSON
 {
     "auth": {
@@ -34,10 +30,6 @@ The information provided was correct a login token and new secret was produced
 ```
 
 - 400 - Bad Request
-Bad Request
-
-Request data is malformed or data is missing
-
 ```JSON
 {
     "error": "bad_request"
@@ -45,10 +37,6 @@ Request data is malformed or data is missing
 ```
 
 - 401 - Not Authorized
-Not Authorized
-
-No Authorization header was included with this request
-
 ```JSON
 {
     "error": "not_authorized"
@@ -72,10 +60,6 @@ __request_headers__
 __responses__
 
 - 200 - Resource availability was checked
-Resource availability was checked
-
-Information about the queried resource was returned
-
 ```JSON
 {
     "exists": "does this resurce already exist bound to some user?"
@@ -83,10 +67,6 @@ Information about the queried resource was returned
 ```
 
 - 401 - Not Authorized
-Not Authorized
-
-No Authorization header was included with this request
-
 ```JSON
 {
     "error": "not_authorized"
@@ -110,10 +90,6 @@ __request_headers__
 __responses__
 
 - 200 - Resource availability was checked
-Resource availability was checked
-
-Information about the queried resource was returned
-
 ```JSON
 {
     "exists": "does this resurce already exist bound to some user?"
@@ -121,10 +97,6 @@ Information about the queried resource was returned
 ```
 
 - 401 - Not Authorized
-Not Authorized
-
-No Authorization header was included with this request
-
 ```JSON
 {
     "error": "not_authorized"
@@ -161,10 +133,6 @@ __request_headers__
 __responses__
 
 - 200 - Content was accepted
-Content was accepted
-
-The uploaded media was accepted and is being uploaded. Returned id may not yet be live
-
 ```JSON
 {
     "content": {
@@ -174,10 +142,6 @@ The uploaded media was accepted and is being uploaded. Returned id may not yet b
 ```
 
 - 400 - Bad Request
-Bad Request
-
-Request data is malformed, data is missing, or the uploaded media does not match given mime
-
 ```JSON
 {
     "error": "bad_request"
@@ -185,10 +149,6 @@ Request data is malformed, data is missing, or the uploaded media does not match
 ```
 
 - 401 - Not Authorized
-Not Authorized
-
-No Authorization header was included with this request
-
 ```JSON
 {
     "error": "not_authorized"
@@ -196,10 +156,6 @@ No Authorization header was included with this request
 ```
 
 - 403 - Content was rejected
-Content was rejected
-
-The uploaded content was rejected because this user is banned from content creation
-
 ```JSON
 {
     "error": "forbidden"
@@ -207,10 +163,6 @@ The uploaded content was rejected because this user is banned from content creat
 ```
 
 - 415 - Unsupported Media
-Unsupported Media
-
-mimetype provided is not a supported upload type
-
 ```JSON
 {
     "error": "bad_media"
@@ -234,10 +186,6 @@ __request_headers__
 __responses__
 
 - 200 - Content information
-Content information
-
-This content was found and its basic information was returned
-
 ```JSON
 {
     "content": {
@@ -260,10 +208,6 @@ This content was found and its basic information was returned
 ```
 
 - 401 - Not Authorized
-Not Authorized
-
-No Authorization header was included with this request
-
 ```JSON
 {
     "error": "not_authorized"
@@ -271,10 +215,6 @@ No Authorization header was included with this request
 ```
 
 - 404 - No such content
-No such content
-
-Content of this id does not exist
-
 ```JSON
 {
     "error": "no_such_content"
@@ -305,10 +245,6 @@ __request_headers__
 __responses__
 
 - 200 - Content feed
-Content feed
-
-A paginated slice of this feed
-
 ```JSON
 {
     "content": [
@@ -333,10 +269,6 @@ A paginated slice of this feed
 ```
 
 - 401 - Not Authorized
-Not Authorized
-
-No Authorization header was included with this request
-
 ```JSON
 {
     "error": "not_authorized"
@@ -368,10 +300,6 @@ __request_headers__
 __responses__
 
 - 200 - Account Created
-Account Created
-
-This account was created
-
 ```JSON
 {
     "user": "created"
@@ -379,10 +307,6 @@ This account was created
 ```
 
 - 400 - Bad Request
-Bad Request
-
-Request data is malformed or data is missing
-
 ```JSON
 {
     "error": "bad_request"
@@ -390,10 +314,6 @@ Request data is malformed or data is missing
 ```
 
 - 401 - Not Authorized
-Not Authorized
-
-No Authorization header was included with this request
-
 ```JSON
 {
     "error": "not_authorized"
@@ -401,10 +321,6 @@ No Authorization header was included with this request
 ```
 
 - 403 - Forbidden
-Forbidden
-
-This device or ip address/range may not create users
-
 ```JSON
 {
     "error": "forbidden"
@@ -412,13 +328,9 @@ This device or ip address/range may not create users
 ```
 
 - 409 - Conflict
-Conflict
-
-The requested nick or email is already in use
-
 ```JSON
 {
-    "error": "<value>_conflict"
+    "conflict": "conflicting key"
 }
 ```
 
@@ -439,10 +351,6 @@ __request_headers__
 __responses__
 
 - 200 - User information
-User information
-
-This user was found and their basic profile was returned
-
 ```JSON
 {
     "user": {
@@ -458,10 +366,6 @@ This user was found and their basic profile was returned
 ```
 
 - 401 - Not Authorized
-Not Authorized
-
-No Authorization header was included with this request
-
 ```JSON
 {
     "error": "not_authorized"
@@ -469,10 +373,6 @@ No Authorization header was included with this request
 ```
 
 - 404 - No such user
-No such user
-
-A user of this id does not exist
-
 ```JSON
 {
     "error": "no_such_user"
@@ -502,15 +402,7 @@ __request_headers__
 __responses__
 
 - 204 - Accepted
-Accepted
-
-The sent content was accepted and processed
-
 - 401 - Not Authorized
-Not Authorized
-
-No Authorization header was included with this request
-
 ```JSON
 {
     "error": "not_authorized"
@@ -518,10 +410,6 @@ No Authorization header was included with this request
 ```
 
 - 404 - No such user
-No such user
-
-A user of this id does not exist
-
 ```JSON
 {
     "error": "no_such_user"
@@ -545,10 +433,6 @@ __request_headers__
 __responses__
 
 - 200 - User information
-User information
-
-This user was found and their basic profile was returned
-
 ```JSON
 {
     "user": {
@@ -564,10 +448,6 @@ This user was found and their basic profile was returned
 ```
 
 - 401 - Not Authorized
-Not Authorized
-
-No Authorization header was included with this request
-
 ```JSON
 {
     "error": "not_authorized"
@@ -575,10 +455,6 @@ No Authorization header was included with this request
 ```
 
 - 404 - No such user
-No such user
-
-A user of this id does not exist
-
 ```JSON
 {
     "error": "no_such_user"
