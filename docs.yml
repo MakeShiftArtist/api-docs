@@ -209,6 +209,13 @@ vars:
                 lang: JSON
                 content: {"error": "bad_media"}
 
+        bad_auth:
+            title: Bad Auth
+            description: The email, password, or secret supplied is bad
+            body:
+                lang: JSON
+                content: {"error": "bad_auth"}
+
     header:
         auth:
             name: Authorization
@@ -274,6 +281,7 @@ routes:
             body: $post.login
             responses:
                 200: $response.login
+                401: $response.bad_auth
 
     /check/nick/:nick/:
         GET:

@@ -36,10 +36,10 @@ __responses__
 }
 ```
 
-- 401 - Not Authorized
+- 401 - Bad Auth
 ```JSON
 {
-    "error": "not_authorized"
+    "error": "bad_auth"
 }
 ```
 
