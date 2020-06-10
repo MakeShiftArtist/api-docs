@@ -2,6 +2,8 @@
 <summary>GET /user/:id/ban/</summary>
 Get a paginated slice of user bans
 
+__query_strings__
+
 |name|description|default|required|
 | - | - | - | - |
 |size|Number of items to fetch|50|False|
@@ -10,8 +12,6 @@ Get a paginated slice of user bans
 __responses__
 
 - 200 - Bans
-Bans cast on this user
-
 ```JSON
 {
     "bans": [
@@ -28,8 +28,6 @@ Bans cast on this user
 ```
 
 - 401 - Not Authorized
-No Authorization header was included with this request
-
 ```JSON
 {
     "error": "not_authorized"
@@ -37,8 +35,6 @@ No Authorization header was included with this request
 ```
 
 - 403 - Forbidden
-only admins may make this request
-
 ```JSON
 {
     "error": "forbidden"
@@ -54,8 +50,6 @@ Ban a user for some reason
 __responses__
 
 - 200 - User ban
-A ban on a user
-
 ```JSON
 {
     "ban": {
@@ -69,8 +63,6 @@ A ban on a user
 ```
 
 - 401 - Not Authorized
-No Authorization header was included with this request
-
 ```JSON
 {
     "error": "not_authorized"
@@ -78,8 +70,6 @@ No Authorization header was included with this request
 ```
 
 - 403 - Forbidden
-only admins may make this request
-
 ```JSON
 {
     "error": "forbidden"
@@ -97,8 +87,6 @@ Get information about a ban
 __responses__
 
 - 200 - User ban
-A ban on a user
-
 ```JSON
 {
     "ban": {
@@ -112,8 +100,6 @@ A ban on a user
 ```
 
 - 401 - Not Authorized
-No Authorization header was included with this request
-
 ```JSON
 {
     "error": "not_authorized"
@@ -121,8 +107,6 @@ No Authorization header was included with this request
 ```
 
 - 403 - Forbidden
-only admins may make this request
-
 ```JSON
 {
     "error": "forbidden"
@@ -130,8 +114,6 @@ only admins may make this request
 ```
 
 - 404 - No such ban for this user
-A ban of this id does not exist for this user
-
 ```JSON
 {
     "error": "no_such_ban"
@@ -147,11 +129,7 @@ rescind a ban
 __responses__
 
 - 204 - Accepted
-The sent content was accepted and processed
-
 - 401 - Not Authorized
-No Authorization header was included with this request
-
 ```JSON
 {
     "error": "not_authorized"
@@ -159,8 +137,6 @@ No Authorization header was included with this request
 ```
 
 - 403 - Forbidden
-only admins may make this request
-
 ```JSON
 {
     "error": "forbidden"
@@ -168,8 +144,6 @@ only admins may make this request
 ```
 
 - 404 - No such ban for this user
-A ban of this id does not exist for this user
-
 ```JSON
 {
     "error": "no_such_ban"
@@ -184,6 +158,8 @@ A ban of this id does not exist for this user
 <summary>GET /user/:id/reports/</summary>
 Get a paginated slice of user reports
 
+__query_strings__
+
 |name|description|default|required|
 | - | - | - | - |
 |size|Number of items to fetch|50|False|
@@ -192,8 +168,6 @@ Get a paginated slice of user reports
 __responses__
 
 - 200 - Reports
-Reports made on this resource
-
 ```JSON
 {
     "reports": [
@@ -209,8 +183,6 @@ Reports made on this resource
 ```
 
 - 401 - Not Authorized
-No Authorization header was included with this request
-
 ```JSON
 {
     "error": "not_authorized"
@@ -218,8 +190,6 @@ No Authorization header was included with this request
 ```
 
 - 403 - Forbidden
-only admins may make this request
-
 ```JSON
 {
     "error": "forbidden"

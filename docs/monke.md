@@ -136,7 +136,20 @@ __responses__
 ```JSON
 {
     "content": {
-        "id": "id of the created content"
+        "id": "content id",
+        "author": "authed user id",
+        "tags": "content tags",
+        "mime": "content mimetype",
+        "like_count": "number of likes on this content",
+        "dislike_count": "number of dislikes on this content",
+        "repub_count": "number of repubs on this content",
+        "view_count": "number of views on this content",
+        "comment_count": "number of comments on this content",
+        "created": "creation timestamp",
+        "featured": "is this content featured?",
+        "featurable": "may this content be featured?",
+        "nsfw": "is this content nsfw?",
+        "removed": "was this content removed?"
     }
 }
 ```
