@@ -240,11 +240,13 @@ vars:
             name: size
             description: Number of items to fetch
             default: 50
+            limit: 0 < it < 200
             required: false
         offset:
             name: offset
             description: paginated index offset
             default: 0
+            limit: out of bounds indexes are not honored
             required: false
 
 routes:

@@ -244,10 +244,10 @@ Get a paginated slice of the all feed
 
 __query_strings__
 
-|name|description|default|required|
-| - | - | - | - |
-|size|Number of items to fetch|50|False|
-|offset|paginated index offset|0|False|
+|name|description|default|limit|required|
+| - | - | - | - | - |
+|size|Number of items to fetch|50|0 < it < 200|False|
+|offset|paginated index offset|0|out of bounds indexes are not honored|False|
 
 __request_headers__
 
