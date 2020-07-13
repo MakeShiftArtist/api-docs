@@ -54,7 +54,18 @@ vars:
     body:
         user_create:
             lang: JSON
-            content: {"user": "created"}
+            content:
+                {
+                    "user": {
+                        "id": "user's UUIDv4",
+                        "nick": "user's nickname",
+                        "bio": "bio (or, about) section",
+                        "subscriber_count": "number of users subscribed to this user",
+                        "subscription_count": "number of users this user has subscribed to",
+                        "post_count": "number of posts and reposts on this user's timeline",
+                        "created": "unix creation timestamp"
+                    }
+                }
 
         report:
             lang: JSON
@@ -69,6 +80,25 @@ vars:
             content: {"conflict": "conflicting key"}
 
     response:
+        user_info_self:
+            title: Self user information
+            description: Information about the authed user
+            body:
+                lang: JSON
+                content:
+                    {
+                        "user": {
+                            "id": "your UUIDv4",
+                            "nick": "your nickname",
+                            "email": "your email",
+                            "bio": "bio (or, about) section",
+                            "subscriber_count": "number of users subscribed to this user",
+                            "subscription_count": "number of users this user has subscribed to",
+                            "post_count": "number of posts and reposts on this user's timeline",
+                            "created": "created time as a UNIX timestamp"
+                        }
+                    }
+
         user_info:
             title: User information
             description: This user was found and their basic profile was returned
@@ -83,7 +113,6 @@ vars:
                             "subscriber_count": "number of users subscribed to this user",
                             "subscription_count": "number of users this user has subscribed to",
                             "post_count": "number of posts and reposts on this user's timeline",
-                            "created": "unix creation timestamp"
                         }
                     }
 
@@ -268,14 +297,14 @@ routes:
                     description: The requested nick or email is already in use
                     body: $body.conflict
 
-    /user/:id/:
+    /user/id/:id/:
         GET:
             description: Get information about some user by their id
             responses:
                 200: $response.user_info
                 404: $response.no_such_user
 
-    /user/:id/reports/:
+    /user/id/:id/reports/:
         PUT:
             description: Report a usre for some reason
             body: $body.report
@@ -338,3 +367,9 @@ routes:
                 - $query_string.offset
             responses:
                 200: $response.feed
+
+    /me/:
+        GET:
+            description: Get information about the authed user
+            responses:
+                200: $response.user_info_self

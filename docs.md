@@ -293,6 +293,45 @@ __responses__
 
 
 <details>
+<summary>GET /me/</summary>
+Get information about the authed user
+
+__request_headers__
+
+|name|value|required|
+| - | - | - |
+|Authorization|Basic or Bearer authorization|True|
+
+__responses__
+
+- 200 - Self user information
+```JSON
+{
+    "user": {
+        "id": "your UUIDv4",
+        "nick": "your nickname",
+        "email": "your email",
+        "bio": "bio (or, about) section",
+        "subscriber_count": "number of users subscribed to this user",
+        "subscription_count": "number of users this user has subscribed to",
+        "post_count": "number of posts and reposts on this user's timeline",
+        "created": "created time as a UNIX timestamp"
+    }
+}
+```
+
+- 401 - Not Authorized
+```JSON
+{
+    "error": "not_authorized"
+}
+```
+
+
+</details>
+
+
+<details>
 <summary>POST /user/</summary>
 Create a new user
 
@@ -315,7 +354,15 @@ __responses__
 - 200 - Account Created
 ```JSON
 {
-    "user": "created"
+    "user": {
+        "id": "user's UUIDv4",
+        "nick": "user's nickname",
+        "bio": "bio (or, about) section",
+        "subscriber_count": "number of users subscribed to this user",
+        "subscription_count": "number of users this user has subscribed to",
+        "post_count": "number of posts and reposts on this user's timeline",
+        "created": "unix creation timestamp"
+    }
 }
 ```
 
@@ -352,7 +399,7 @@ __responses__
 
 
 <details>
-<summary>GET /user/:id/</summary>
+<summary>GET /user/id/:id/</summary>
 Get information about some user by their id
 
 __request_headers__
@@ -372,8 +419,7 @@ __responses__
         "bio": "bio (or, about) section",
         "subscriber_count": "number of users subscribed to this user",
         "subscription_count": "number of users this user has subscribed to",
-        "post_count": "number of posts and reposts on this user's timeline",
-        "created": "unix creation timestamp"
+        "post_count": "number of posts and reposts on this user's timeline"
     }
 }
 ```
@@ -397,7 +443,7 @@ __responses__
 
 
 <details>
-<summary>PUT /user/:id/reports/</summary>
+<summary>PUT /user/id/:id/reports/</summary>
 Report a usre for some reason
 
 __request_headers__
@@ -454,8 +500,7 @@ __responses__
         "bio": "bio (or, about) section",
         "subscriber_count": "number of users subscribed to this user",
         "subscription_count": "number of users this user has subscribed to",
-        "post_count": "number of posts and reposts on this user's timeline",
-        "created": "unix creation timestamp"
+        "post_count": "number of posts and reposts on this user's timeline"
     }
 }
 ```
